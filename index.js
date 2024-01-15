@@ -6,7 +6,6 @@ const displayScores = document.getElementById('displayScores');
 const displayTextElem = document.getElementById('displayText');
 const context = canvas.getContext('2d');
 
-// 16 / 9
 canvas.width = 1024;
 canvas.height = 576;
 
@@ -25,7 +24,6 @@ class Player {
         const image = new Image();
         image.src = './assets/spaceship.png';
 
-        // runs when the image is loaded completely
         image.onload = () => {
             const scale = 0.15;
             this.image = image;
@@ -41,9 +39,6 @@ class Player {
     }
 
     draw() {
-        // context.fillStyle = 'red';
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
         // rotate the player
         context.save();
         context.globalAlpha = this.opacity;
@@ -124,8 +119,6 @@ class InvaderProjectile {
     constructor({ position, velocity }) {
         this.position = position;
         this.velocity = velocity;
-
-        // this.radius = 4;
         this.width = 3;
         this.height = 10;
     }
@@ -152,7 +145,6 @@ class Invader {
         const image = new Image();
         image.src = './assets/invader.png';
 
-        // runs when the image is loaded completely
         image.onload = () => {
             const scale = 1;
             this.image = image;
@@ -168,17 +160,9 @@ class Invader {
     }
 
     draw() {
-        // rotate the player
-        // context.save();
-        // context.translate(player.position.x + player.width / 2, player.position.y + player.height / 2);
-        // context.rotate(this.rotation);
-        // context.translate(-player.position.x - player.width / 2, -player.position.y - player.height / 2);
-
         if (this.image) {
             context.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
         }
-
-        // context.restore();
     }
 
     update({ velocity }) {
@@ -242,21 +226,10 @@ class Grid {
 };
 
 let player = new Player();
-// player.draw();
-
-// const projectiles = [
-//     new Projectile({position: {x: 300, y: 300}, velocity: {x: 0, y: 0}})
-// ];
 let projectiles = [];
-// const invaders = [];
-// const invader = new Invader();
-
 let grids = [];
-
 let invaderProjectiles = [];
-
 let particles = [];
-
 let keys = {
     a: {
         pressed: false
@@ -268,7 +241,6 @@ let keys = {
         pressed: false
     },
 };
-
 let score = 0;
 let frames = 0;
 let randomInterval = Math.floor(Math.random() * 500) + 500;
@@ -288,19 +260,10 @@ for (let i = 0; i < 100; i++) {
 
 function init() {
     player = new Player();
-    // player.draw();
 
-    // const projectiles = [
-    //     new Projectile({position: {x: 300, y: 300}, velocity: {x: 0, y: 0}})
-    // ];
     projectiles = [];
-    // const invaders = [];
-    // const invader = new Invader();
-
     grids = [];
-
     invaderProjectiles = [];
-
     particles = [];
 
     keys = {
@@ -360,8 +323,6 @@ function animate() {
     animationId = requestAnimationFrame(animate);
     context.fillStyle = 'black';
     context.fillRect(0, 0, canvas.width, canvas.height);
-    // invader.update();
-    // player.draw();
     player.update();
 
     particles.forEach((particle, index) => {
@@ -510,56 +471,39 @@ function animate() {
     frames++;
 }
 
-// animate();
-
 addEventListener('keydown', ({ key }) => {
-    // console.log(event.key);
     if (game.over) return;
 
     switch (key) {
         case 'a':
-            console.log('left');
-            // player.velocity.x = -5;
             keys.a.pressed = true;
             break;
         case 'd':
-            console.log('right');
-            // player.velocity.x = 5;
             keys.d.pressed = true;
             break;
         case 'w':
-            console.log('up');
             break;
         case 's':
-            console.log('down');
             break;
         case ' ':
-            console.log('shoot');
             projectiles.push(new Projectile({ position: { x: player.position.x + player.width / 2, y: player.position.y }, velocity: { x: 0, y: -10 } }));
-            // console.log(projectiles);
             break;
     }
 });
 
 addEventListener('keyup', ({ key }) => {
-    // console.log(event.key);
     switch (key) {
         case 'a':
-            console.log('left');
             keys.a.pressed = false;
             break;
         case 'd':
-            console.log('right');
             keys.d.pressed = false;
             break;
         case 'w':
-            console.log('up');
             break;
         case 's':
-            console.log('down');
             break;
         case ' ':
-            console.log('shoot');
             break;
     }
 });
